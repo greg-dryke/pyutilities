@@ -11,6 +11,8 @@ class Log:
         global log_file
         log_file = open(filePath, 'a')
     
+
+
     def LogMsg(self,msg, level):
         curTime = str(datetime.datetime.now())
         full_msg = '[{0} {1}] {2}'.format(level, curTime, msg)
@@ -19,6 +21,11 @@ class Log:
         log_file.flush()
         os.fsync(log_file)
     
+    def LogDebug(self,msg):
+        trace = os.environ.get('PYUTILS_DEBUG')
+        if trace is not None:
+            self.LogMsg(msg, 'Debug')
+
     def LogInfo(self,msg):
         self.LogMsg(msg, 'Info')
     
